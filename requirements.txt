@@ -1,8 +1,5 @@
 numpy
 pandas
 sklearn
-math
-scipy
 Flask
-joblib
 gunicorn
