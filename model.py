@@ -83,6 +83,10 @@ clf = clf.fit(X_train,y_train)
 #Predicting the response for test dataset
 y_pred = clf.predict(X_test)
 
+cost_of_invest=df['EstimatedReturn']
+annual_income=df['StatedMonthlyIncome']
+ROI= annual_income*12/cost_of_invest
+
 import pickle
 filename='model.pkl'
 pickle.dump(clf, open(filename, 'wb'))
