@@ -40,6 +40,7 @@ def predict_logic():
     approved = "Congratulations! Your loan has been approved."
     not_approved = "Sorry, you cannot get a loan."
     result = ''
+    roi_rate = 'Rate of Interest Not valid'
     if pred_name == '0':
         result = approved
         roi_rate = pred_ROI
