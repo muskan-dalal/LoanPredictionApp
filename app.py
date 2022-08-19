@@ -13,6 +13,7 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 model = pickle.load(open('model.pkl', 'rb'))
+model_ROI = pickle.load(open('model_ROI.pkl', 'rb'))
 
 @app.route('/')
 def index():
@@ -33,14 +34,18 @@ def predict_logic():
     pred_name = model.predict([[LP_CustomerPrincipalPayments, LP_CustomerPayments, DebtToIncomeRatio,
                                 StatedMonthlyIncome, LP_GrossPrincipalLoss, LoanOriginalAmount,
                                 MonthlyLoanPayment]]).tolist()[0]
+    pred_ROI = model_ROI.predict([[LP_CustomerPrincipalPayments, LP_CustomerPayments, DebtToIncomeRatio,
+                                StatedMonthlyIncome, LP_GrossPrincipalLoss, LoanOriginalAmount,
+                                MonthlyLoanPayment]]).tolist()[0]
     approved = "Congratulations! Your loan has been approved."
     not_approved = "Sorry, you cannot get a loan."
     result = ''
     if pred_name == '0':
         result = approved
+        roi_rate = pred_ROI
     else:
         result = not_approved
-    return render_template('predict.html', pred_name=pred_name, prediction=result)
+    return render_template('predict.html', pred_name=pred_name, prediction=result, rate=roi_rate)
 
 
 
